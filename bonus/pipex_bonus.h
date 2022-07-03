@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:22 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 20:54:35 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/03 21:30:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
-	int		num_cmd;		// Position de la commande
+	int	        num_cmd;		// Position de la commande
 	char	*cmd;			// CMD A EXECUTER 
 	char	**arg_cmd;		// ARGUMENT DE LA COMMANDE
 	int				pipe[2];	// ENTRÉ ET SORTIE DU PIPE
@@ -37,12 +39,9 @@ typedef struct s_pipex
 	char			**argv;	// ARGUMENT ./PIPEX_BONUS infile cmd1 cmd2 cmd3 outfile
 	int				n_cmd;	// NOMBRE DE COMMANDE +1
 	struct s_cmd	*cmd;
-	
 }t_pipex;
 
-
-
-int     cmp_char(char c1, char c2);
+int cmp_char(char c1, char c2);
 int     ft_strncmp(char *s1, char *s2, int n);
 char    *ft_find_paths(char **envp);
 char    *ft_path(char **envp, char **argVec);

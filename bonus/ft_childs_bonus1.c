@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_childs_bonus1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:37:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 20:22:56 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/03 22:10:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void ft_childs(t_pipex pipex, int i)
 	if(!ft_lstlast(pipex.cmd)->cmd)
 	{
 		perror(ft_lstlast(pipex.cmd)->arg_cmd[0]);
+		ft_free_all(pipex);
 		exit(1);
 	}
 	if(execve(ft_lstlast(pipex.cmd)->cmd,ft_lstlast(pipex.cmd)->arg_cmd, pipex.envp) == -1)

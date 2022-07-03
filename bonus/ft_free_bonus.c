@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:53:38 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 21:01:54 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/03 22:10:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void ft_free_child(t_pipex pipex)
 }
 */
 
-void ft_free_papa(t_pipex pipex)
+void ft_free_all(t_pipex pipex)
 {
 	int i;
 	
@@ -70,8 +70,9 @@ void ft_lst_free(t_cmd *lst)
 		lst = lst->next;
 		if(lst2->cmd)
 			free(lst2->cmd);
-
-		ft_free(lst->arg_cmd);
+		
+		if(lst2->arg_cmd)
+			ft_free(lst2->arg_cmd);
 		free(lst2);
 		
 	}

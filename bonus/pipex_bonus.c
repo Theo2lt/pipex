@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 20:40:55 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/03 21:38:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int main(int argc, char **argv, char **envp)
 		{
 			//ft_debug_cmd(pipex);
 			ft_childs(pipex, i);
+			waitpid(ft_lstlast(pipex.cmd)->pid, NULL, 0);
+			
 		}
 		i++;
 	}
