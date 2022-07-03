@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/27 15:35:02 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 00:00:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int argc, char **argv, char **envp)
 
 	if(argc != 5)
 		return (0);
-	(void) argv;
 
 	///// OPEN FILE FD ///////
 	
@@ -31,7 +30,7 @@ int main(int argc, char **argv, char **envp)
 		perror(argv[4]);
 	
 	// OUVERTURE PIPE //
-	if(pipe(pipex.tub) == 1)
+	if(pipe(pipex.tub) < 0)
 		ft_putstr("ERR\n",2);
 	
 	/// PATH ET ENVP /// 
@@ -39,26 +38,20 @@ int main(int argc, char **argv, char **envp)
 	pipex.paths = ft_split(ft_find_paths(envp)+5,':');
 
 	/// FORK ///
-	if(pipex.infile != -1)
-	{
-		pipex.pid1 = fork();
-		if(pipex.pid1 == 0)
-			ft_child1(pipex, argv, envp);
-	}
+	pipex.pid1 = fork();
+	if(pipex.pid1 == 0)
+		ft_child1(pipex, argv, envp);
 	
-	if(pipex.outfile != -1)
-	{ 
-		pipex.pid2 = fork();
-		if(pipex.pid2 == 0)
-			ft_child2(pipex, argv, envp);
-	}
-	close(pipex.tub[0]);
-	close(pipex.tub[1]);
+	pipex.pid2 = fork();
+	if(pipex.pid2 == 0)
+		ft_child2(pipex, argv, envp);
+	
+	ft_close_pipe(&pipex);
 	
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
 
-	ft_free_papa(pipex);
+	ft_free_papa(&pipex);
 	return(0);
 	
 }

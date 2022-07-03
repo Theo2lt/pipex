@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 21:38:36 by user             ###   ########.fr       */
+/*   Updated: 2022/07/03 23:11:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv, char **envp)
 	ft_lst_close_pipe(pipex.cmd);
 	waitpid(ft_lstlast(pipex.cmd)->pid, NULL, 0);
 
-	ft_free_papa(pipex);
+	ft_free_all(pipex);
 	
 
 		

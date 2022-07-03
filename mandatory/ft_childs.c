@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_childs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:07:18 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/24 17:26:08 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 00:02:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_child1(t_pipex pipex, char **argv, char **envp)
     dup2(pipex.tub[1],1);
     close(pipex.tub[0]);
     dup2(pipex.infile,0);
-
+    
     pipex.cmd_arg = ft_split(argv[2], ' ');
     pipex.cmd = ft_path(pipex.paths, pipex.cmd_arg);
     if(!pipex.cmd)
@@ -45,8 +45,7 @@ void ft_child1(t_pipex pipex, char **argv, char **envp)
         ft_free_child(pipex);
         exit(1);
     }
-    if(execve( pipex.cmd, pipex.cmd_arg, envp) == -1)
-            perror("Error execve\n");
+    execve( pipex.cmd, pipex.cmd_arg, envp);
 }
 
 void ft_child2(t_pipex pipex, char **argv, char **envp)
@@ -54,7 +53,8 @@ void ft_child2(t_pipex pipex, char **argv, char **envp)
     dup2(pipex.tub[0],0);
     close(pipex.tub[1]);
     dup2(pipex.outfile,1);
-
+    
+    
     pipex.cmd_arg = ft_split(argv[3], ' ');
     pipex.cmd = ft_path(pipex.paths, pipex.cmd_arg);
     if(!pipex.cmd)
@@ -63,6 +63,5 @@ void ft_child2(t_pipex pipex, char **argv, char **envp)
         ft_free_child(pipex);
         exit(1);
     }
-    if(execve(pipex.cmd, pipex.cmd_arg, envp) == -1)
-            perror("Error execve\n");
+    execve(pipex.cmd, pipex.cmd_arg, envp);
 }

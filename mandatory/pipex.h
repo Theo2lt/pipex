@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:22 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/24 17:57:12 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 00:00:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_pipex
 {
@@ -47,9 +49,10 @@ void	ft_putstr(char *s, int fd);
 void    ft_child1(t_pipex pipex, char **argv, char **envp);
 void    ft_child2(t_pipex pipex, char **argv, char **envp);
 void    ft_free_child(t_pipex pipex);
-void    ft_free_papa(t_pipex pipex);
+void    ft_free_papa(t_pipex *pipex);
 char    *ft_find_shell(char **envp);
 void    ft_cmd_not_fond(t_pipex pipex);
 void    ft_no_such_file(char **envp, char *str);
+void    ft_close_pipe(t_pipex *pipex);
 
 #endif
