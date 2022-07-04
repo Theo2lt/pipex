@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:46:19 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/03 19:49:44 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 11:04:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-t_cmd *ft_lstnew(int num_cmd ,char *cmd_arg, t_pipex pipex)
+t_cmd	*ft_lstnew(int num_cmd, char *cmd_arg, t_pipex pipex)
 {
 	t_cmd	*new;
 
@@ -22,11 +22,10 @@ t_cmd *ft_lstnew(int num_cmd ,char *cmd_arg, t_pipex pipex)
 	new->num_cmd = num_cmd;
 	new->arg_cmd = ft_split(cmd_arg, ' ');
 	new->cmd = ft_path(pipex.paths, new->arg_cmd);
-	if(pipe(new->pipe))
-		ft_putstr("ERROR",2);
+	if (pipe(new->pipe))
+		ft_putstr("ERROR", 2);
 	new->pid = 0;
 	new->next = NULL;
-	
 	return (new);
 }
 
@@ -44,10 +43,10 @@ t_cmd	*ft_lstlast(t_cmd *lst)
 t_cmd	*ft_lst_avant_dernier_last(t_cmd *lst)
 {
 	if (!lst->next)
-		return(lst);
+		return (lst);
 	else
 	{
-	while (lst)
+		while (lst)
 		{
 			if (!lst->next->next)
 				return (lst);
@@ -60,7 +59,7 @@ t_cmd	*ft_lst_avant_dernier_last(t_cmd *lst)
 void	ft_lstadd_back(t_cmd **alst, t_cmd *new)
 {
 	t_cmd	*last;
-	
+
 	if (*alst)
 	{
 		last = ft_lstlast(*alst);
@@ -68,10 +67,9 @@ void	ft_lstadd_back(t_cmd **alst, t_cmd *new)
 	}
 	else
 		*alst = new;
-
 }
 
-void ft_lst_close_pipe(t_cmd *lst)
+void	ft_lst_close_pipe(t_cmd *lst)
 {
 	while (lst)
 	{
