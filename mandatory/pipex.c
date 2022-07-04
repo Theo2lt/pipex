@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:06 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:00:55 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 void	ft_param_main(t_pipex *pipex, int argc, char **argv, char **envp)
 {
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 	int		i;
 
-	if (argc < 3)
+	if (argc != 5)
 		return (0);
 	ft_param_main(&pipex, argc, argv, envp);
 	i = 2;

@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_put.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 21:39:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:05 by tliot            ###   ########.fr       */
+/*   Created: 2022/06/24 00:46:11 by tliot             #+#    #+#             */
+/*   Updated: 2022/07/04 15:00:12 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
-int	ft_cmp_char(char c1, char c2)
+void	ft_putchar(char c, int fd)
 {
-	if ((unsigned char)c1 != (unsigned char)c2)
-		return ((unsigned char)c1 - (unsigned char)c2);
-	return (0);
+	write(fd, &c, 1);
 }
 
-int	ft_strncmp(char *s1, char *s2, int n)
+void	ft_putstr(char *s, int fd)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (s1[i] && s2[i] && i < n)
+	while (s[i])
 	{
-		if (ft_cmp_char(s1[i], s2[i]))
-			return (s1[i] - s2[i]);
+		ft_putchar(s[i], fd);
 		i++;
 	}
-	if (i < n)
-		return (ft_cmp_char(s1[i], s2[i]));
-	return (0);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_childs_bonus1.c                                 :+:      :+:    :+:   */
+/*   ft_childs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:37:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 14:59:57 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:01:17 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 char	*ft_path(char **paths, char **cmd_arg)
 {
@@ -45,9 +45,6 @@ void	ft_childs(t_pipex pipex, int i)
 	else if (i == pipex.n_cmd - 1)
 		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
 			pipex.outfile);
-	else if (i > 2 && i < pipex.n_cmd - 1)
-		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
-			ft_lstlast(pipex.cmd)->pipe[1]);
 	ft_lst_close_pipe(pipex.cmd);
 	if (!ft_lstlast(pipex.cmd)->cmd)
 	{
