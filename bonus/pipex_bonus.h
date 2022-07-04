@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:22 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:06 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:17:43 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	ft_free(char **str);
 char	*ft_strjoin_path(char *s1, char *s2);
 void	ft_putchar(char c, int fd);
 void	ft_putstr(char *s, int fd);
-void	ft_child1(t_pipex pipex, char **argv, char **envp);
-void	ft_child2(t_pipex pipex, char **argv, char **envp);
 void	ft_free_all(t_pipex pipex);
 char	*ft_find_shell(char **envp);
 void	ft_cmd_not_fond(t_pipex pipex);
@@ -78,6 +76,5 @@ void	ft_lst_close_pipe(t_cmd *lst);
 void	ft_debug_cmd(t_pipex pipex);
 
 // FREE //
-
 void	ft_lst_free(t_cmd *lst);
 #endif

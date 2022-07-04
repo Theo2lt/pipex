@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:37:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:01:17 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 15:16:44 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	ft_childs(t_pipex pipex, int i)
 		ft_free_all(pipex);
 		exit(1);
 	}
-	
 	if (execve(ft_lstlast(pipex.cmd)->cmd,
 			ft_lstlast(pipex.cmd)->arg_cmd, pipex.envp) == -1)
 		perror("Error execve\n");
