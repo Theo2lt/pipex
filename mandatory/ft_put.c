@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 00:46:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:12 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 16:07:20 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,19 @@ void	ft_putstr(char *s, int fd)
 		ft_putchar(s[i], fd);
 		i++;
 	}
+}
+
+void	ft_putnbr(int nb, int fd)
+{
+	if (nb < 0)
+	{
+		nb = -nb;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr(nb / 10, fd);
+		ft_putnbr(nb % 10, fd);
+	}
+	else
+		ft_putchar(nb + '0', fd);
 }

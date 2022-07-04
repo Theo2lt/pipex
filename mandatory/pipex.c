@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:55 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 18:01:43 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,25 @@ int	main(int argc, char **argv, char **envp)
 		ft_lstadd_back(&pipex.cmd, ft_lstnew(i, argv[i], pipex));
 		ft_lstlast(pipex.cmd)->pid = fork();
 		if (ft_lstlast(pipex.cmd)->pid == 0)
-		{
 			ft_childs(pipex, i);
-			waitpid(ft_lstlast(pipex.cmd)->pid, NULL, 0);
-		}
 		i++;
 	}
+	close(pipex.infile);
+	close(pipex.outfile);
 	ft_lst_close_pipe(pipex.cmd);
+	ft_wait_all_pid(pipex.cmd);
 	ft_free_all(pipex);
 	return (0);
+}
+
+void	ft_wait_all_pid(t_cmd *lst)
+{
+	t_cmd	*lst2;
+
+	lst2 = lst;
+	while (lst2)
+	{
+		waitpid(lst2->pid, NULL, 0);
+		lst2 = lst2->next;
+	}
 }

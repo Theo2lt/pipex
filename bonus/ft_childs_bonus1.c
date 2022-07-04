@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:37:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:16:23 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 18:04:17 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,8 @@ void	dup2_double(int zero, int un)
 	dup2(un, 1);
 }
 
-void	ft_childs(t_pipex pipex, int i)
+void	ft_exec(t_pipex pipex)
 {
-	if (pipex.n_cmd - 1 == 2)
-		dup2_double(pipex.infile, pipex.outfile);
-	else if (i == 2)
-		dup2_double(pipex.infile, ft_lstlast(pipex.cmd)->pipe[1]);
-	else if (i == pipex.n_cmd - 1)
-		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
-			pipex.outfile);
-	else if (i > 2 && i < pipex.n_cmd - 1)
-		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
-			ft_lstlast(pipex.cmd)->pipe[1]);
-	ft_lst_close_pipe(pipex.cmd);
 	if (!ft_lstlast(pipex.cmd)->cmd)
 	{
 		perror(ft_lstlast(pipex.cmd)->arg_cmd[0]);
@@ -58,4 +47,30 @@ void	ft_childs(t_pipex pipex, int i)
 	if (execve(ft_lstlast(pipex.cmd)->cmd,
 			ft_lstlast(pipex.cmd)->arg_cmd, pipex.envp) == -1)
 		perror("Error execve\n");
+}
+
+void	ft_childs(t_pipex pipex, int i)
+{
+	if (pipex.n_cmd - 1 == 2)
+		dup2_double(pipex.infile, pipex.outfile);
+	else if (i == 2)
+		dup2_double(pipex.infile, ft_lstlast(pipex.cmd)->pipe[1]);
+	else if (i == pipex.n_cmd - 1)
+	{
+		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
+			pipex.outfile);
+		if (pipex.outfile == -1)
+		{
+			ft_lst_close_pipe(pipex.cmd);
+			ft_free_all(pipex);
+			exit(1);
+		}
+	}
+	else if (i > 2 && i < pipex.n_cmd - 1)
+		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
+			ft_lstlast(pipex.cmd)->pipe[1]);
+	ft_lst_close_pipe(pipex.cmd);
+	close(pipex.infile);
+	close(pipex.outfile);
+	ft_exec(pipex);
 }

@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:22 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:17:38 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/04 16:26:30 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_cmd	*ft_lstnew(int num_cmd, char *cmd_arg, t_pipex pipex);
 t_cmd	*ft_lstlast(t_cmd *lst);
 t_cmd	*ft_lst_avant_dernier_last(t_cmd *lst);
 void	ft_lstadd_back(t_cmd **alst, t_cmd *new);
+void	ft_wait_all_pid(t_cmd *lst);
 
 /// CHILD ///
 
@@ -74,6 +75,7 @@ void	ft_lst_close_pipe(t_cmd *lst);
 
 /// DEBUG //
 void	ft_debug_cmd(t_pipex pipex);
+void	ft_putnbr(int nb, int fd);
 
 // FREE //
 void	ft_lst_free(t_cmd *lst);
