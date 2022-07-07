@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 18:02:08 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/06 19:02:21 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@ void	ft_param_main(t_pipex *pipex, int argc, char **argv, char **envp)
 	pipex->n_cmd = argc - 1;
 	pipex->infile = open(argv[1], O_RDONLY);
 	if (pipex->infile == -1)
+	{
 		perror(argv[1]);
+		close(pipex->infile);
+	}
 	pipex->outfile = open(argv[pipex->n_cmd],
 			O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (pipex->outfile == -1)
 		perror(argv[pipex->n_cmd]);
 	pipex->envp = envp;
-	pipex->paths = ft_split(ft_find_paths(envp) + 5, ':');
+	if (!ft_find_paths(pipex->envp))
+	{
+		pipex->envp = NULL;
+		pipex->paths = NULL;
+	}
+	else
+		pipex->paths = ft_split(ft_find_paths(pipex->envp) + 5, ':');
 	pipex->cmd = NULL;
 }
 
@@ -45,7 +54,8 @@ int	main(int argc, char **argv, char **envp)
 			ft_childs(pipex, i);
 		i++;
 	}
-	close(pipex.infile);
+	if (pipex.infile != -1)
+		close(pipex.infile);
 	close(pipex.outfile);
 	ft_lst_close_pipe(pipex.cmd);
 	ft_wait_all_pid(pipex.cmd);

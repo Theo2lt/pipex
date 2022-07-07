@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:05 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/06 18:49:41 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	int	i;
 
 	i = 0;
+	if (!s1)
+		return (0);
 	while (s1[i] && s2[i] && i < n)
 	{
 		if (ft_cmp_char(s1[i], s2[i]))

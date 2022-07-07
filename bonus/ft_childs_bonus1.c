@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 15:37:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 18:04:17 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/07 15:18:22 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ char	*ft_path(char **paths, char **cmd_arg)
 
 	path = NULL;
 	i = 0;
-	while (paths[i] != NULL)
+	if (paths)
 	{
-		path = ft_strjoin_path(paths[i], cmd_arg[0]);
-		if (access(path, X_OK) == 0)
-			return (path);
-		free(path);
-		i++;
+		while (paths[i] != NULL)
+		{
+			path = ft_strjoin_path(paths[i], cmd_arg[0]);
+			if (access(path, X_OK) == 0)
+				return (path);
+			free(path);
+			i++;
+		}
 	}
 	return (NULL);
 }
@@ -38,10 +41,23 @@ void	dup2_double(int zero, int un)
 
 void	ft_exec(t_pipex pipex)
 {
+	if (pipex.infile == -1 && ft_lstlast(pipex.cmd)->num_cmd == 2)
+	{
+		ft_free_all(pipex);
+		close(pipex.infile);
+		close(pipex.outfile);
+		exit(1);
+	}
 	if (!ft_lstlast(pipex.cmd)->cmd)
 	{
-		perror(ft_lstlast(pipex.cmd)->arg_cmd[0]);
+		waitpid(ft_lst_avant_dernier_last(pipex.cmd)->pid, NULL, 0);
+		ft_putstr("command not found : '", 2);
+		if (ft_lstlast(pipex.cmd)->arg_cmd[0])
+			ft_putstr(ft_lstlast(pipex.cmd)->arg_cmd[0], 2);
+		ft_putstr("'\n", 2);
 		ft_free_all(pipex);
+		close(pipex.infile);
+		close(pipex.outfile);
 		exit(1);
 	}
 	if (execve(ft_lstlast(pipex.cmd)->cmd,
@@ -51,9 +67,9 @@ void	ft_exec(t_pipex pipex)
 
 void	ft_childs(t_pipex pipex, int i)
 {
-	if (pipex.n_cmd - 1 == 2)
+	if (pipex.n_cmd - 1 == 2 && pipex.infile != 1)
 		dup2_double(pipex.infile, pipex.outfile);
-	else if (i == 2)
+	else if (i == 2 && pipex.infile != 1)
 		dup2_double(pipex.infile, ft_lstlast(pipex.cmd)->pipe[1]);
 	else if (i == pipex.n_cmd - 1)
 	{
@@ -70,7 +86,5 @@ void	ft_childs(t_pipex pipex, int i)
 		dup2_double(ft_lst_avant_dernier_last(pipex.cmd)->pipe[0],
 			ft_lstlast(pipex.cmd)->pipe[1]);
 	ft_lst_close_pipe(pipex.cmd);
-	close(pipex.infile);
-	close(pipex.outfile);
 	ft_exec(pipex);
 }
