@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put.c                                           :+:      :+:    :+:   */
+/*   ft_srtcpy_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 00:46:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/09 10:55:35 by tliot            ###   ########.fr       */
+/*   Created: 2022/07/08 00:12:17 by tliot             #+#    #+#             */
+/*   Updated: 2022/07/08 00:21:04 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-void	ft_putchar(char c, int fd)
+void	*ft_strcpy(char *src)
 {
-	write(fd, &c, 1);
-}
-
-void	ft_putstr(char *s, int fd)
-{
+	char	*cpy;
 	int		i;
+	int		len;
 
+	if (src == NULL)
+		return (NULL);
+	len = ft_strlen(src);
+	cpy = (char *)malloc(sizeof(char *) * len);
+	if (!cpy)
+		return (NULL);
 	i = 0;
-	while (s[i])
+	while (i <= len)
 	{
-		ft_putchar(s[i], fd);
+		cpy[i] = src[i];
 		i++;
 	}
+	return (cpy);
 }

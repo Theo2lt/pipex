@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:53:38 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 15:00:11 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/09 10:55:01 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ void	ft_free_all(t_pipex pipex)
 	int	i;
 
 	i = 0;
-	while (pipex.paths[i])
+	if (pipex.envp)
 	{
-		free(pipex.paths[i]);
-		i++;
+		while (pipex.paths[i])
+		{
+			free(pipex.paths[i]);
+			i++;
+		}
+		free(pipex.paths);
 	}
-	free(pipex.paths);
-	close(pipex.infile);
-	close(pipex.outfile);
+	if (pipex.infile >= 0)
+		close(pipex.infile);
+	if (pipex.outfile >= 0)
+		close(pipex.outfile);
 	ft_lst_free(pipex.cmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 18:01:43 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/09 11:03:05 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,22 @@ void	ft_param_main(t_pipex *pipex, int argc, char **argv, char **envp)
 	if (pipex->outfile == -1)
 		perror(argv[pipex->n_cmd]);
 	pipex->envp = envp;
-	pipex->paths = ft_split(ft_find_paths(envp) + 5, ':');
+	if (!ft_find_paths(pipex->envp))
+	{
+		pipex->envp = NULL;
+		pipex->paths = NULL;
+	}
+	else
+		pipex->paths = ft_split(ft_find_paths(pipex->envp) + 5, ':');
 	pipex->cmd = NULL;
+}
+
+void	ft_commande_not_found(t_pipex	pipex)
+{
+	ft_putstr("command not found : '", 2);
+	if (ft_lstlast(pipex.cmd)->arg_cmd[0])
+		ft_putstr(ft_lstlast(pipex.cmd)->arg_cmd[0], 2);
+	ft_putstr("'\n", 2);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -34,33 +48,24 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 
 	if (argc != 5)
+	{
+		ft_putstr("ERREUR NOMBRE ARG\n", 2);
 		return (0);
+	}
 	ft_param_main(&pipex, argc, argv, envp);
 	i = 2;
 	while (i <= pipex.n_cmd - 1)
 	{	
 		ft_lstadd_back(&pipex.cmd, ft_lstnew(i, argv[i], pipex));
+		if (!ft_lstlast(pipex.cmd)->cmd)
+			ft_commande_not_found(pipex);
 		ft_lstlast(pipex.cmd)->pid = fork();
 		if (ft_lstlast(pipex.cmd)->pid == 0)
 			ft_childs(pipex, i);
 		i++;
 	}
-	close(pipex.infile);
-	close(pipex.outfile);
 	ft_lst_close_pipe(pipex.cmd);
 	ft_wait_all_pid(pipex.cmd);
 	ft_free_all(pipex);
 	return (0);
-}
-
-void	ft_wait_all_pid(t_cmd *lst)
-{
-	t_cmd	*lst2;
-
-	lst2 = lst;
-	while (lst2)
-	{
-		waitpid(lst2->pid, NULL, 0);
-		lst2 = lst2->next;
-	}
 }

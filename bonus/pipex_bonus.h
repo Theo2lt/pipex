@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:22 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/04 18:01:00 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/09 10:53:03 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_pipex
 	struct s_cmd	*cmd;
 }	t_pipex;
 
+void	*ft_strcpy(char *src);
 int		ft_cmp_char(char c1, char c2);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_find_paths(char **envp);
@@ -75,6 +76,7 @@ void	ft_lst_close_pipe(t_cmd *lst);
 
 /// DEBUG //
 void	ft_debug_cmd(t_pipex pipex);
+void	ft_commande_not_found(t_pipex pipex);
 
 // FREE //
 void	ft_lst_free(t_cmd *lst);

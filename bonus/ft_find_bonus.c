@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:01:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/06 19:11:32 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/08 01:47:36 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ char	*ft_find_paths(char **envp)
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 4) != 0)
 		i++;
-	if (envp[i])
+	if (!envp[i])
 		return (NULL);
-	//if (ft_strncmp(envp[i], "PATH=", 4) != 0)
-	//	return (NULL);
 	return (envp[i]);
 }
 

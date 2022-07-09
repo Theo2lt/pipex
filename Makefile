@@ -6,7 +6,7 @@
 #    By: tliot <tliot@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 21:22:24 by tliot             #+#    #+#              #
-#    Updated: 2022/07/04 15:27:55 by tliot            ###   ########.fr        #
+#    Updated: 2022/07/09 11:01:00 by tliot            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS	=	mandatory/ft_childs.c\
 			mandatory/ft_split.c\
 			mandatory/ft_strjoin_path.c\
 			mandatory/ft_strncmp.c\
+			mandatory/ft_wait.c\
+			mandatory/ft_srtcpy.c\
 			mandatory/pipex.c
 
 
@@ -32,6 +34,8 @@ SRCSBONUS = bonus/ft_childs_bonus1.c\
 			bonus/ft_split_bonus.c\
 			bonus/ft_strjoin_path_bonus.c\
 			bonus/ft_strncmp_bonus.c\
+			bonus/ft_wait_bonus.c\
+			bonus/ft_srtcpy_bonus.c\
 			bonus/pipex_bonus.c
 
 OBJS			=	$(SRCS:%.c=%.o)

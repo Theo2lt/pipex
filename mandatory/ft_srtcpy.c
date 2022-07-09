@@ -1,48 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_find.c                                          :+:      :+:    :+:   */
+/*   ft_srtcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 17:01:37 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/09 10:54:45 by tliot            ###   ########.fr       */
+/*   Created: 2022/07/08 00:12:17 by tliot             #+#    #+#             */
+/*   Updated: 2022/07/09 10:56:00 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_find_paths(char **envp)
+void	*ft_strcpy(char *src)
 {
-	int	i;
+	char	*cpy;
+	int		i;
+	int		len;
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PATH=", 4) != 0)
-		i++;
-	if (!envp[i])
+	if (src == NULL)
 		return (NULL);
-	return (envp[i]);
-}
-
-char	*ft_find_shell(char **envp)
-{
-	int	i;
-	int	y;
-
-	i = 0;
-	while (ft_strncmp(envp[i], "SHELL=", 5) != 0)
-		i++;
-	if (ft_strncmp(envp[i], "SHELL=", 5) != 0)
+	len = ft_strlen(src);
+	cpy = (char *)malloc(sizeof(char *) * len);
+	if (!cpy)
 		return (NULL);
-	y = 0;
-	while (envp[i][y + 1])
-		y++;
-	while (envp[i][y])
+	i = 0;
+	while (i <= len)
 	{
-		if (envp[i][y] != '/')
-			y--;
-		else
-			return (envp[i] + y + 1);
+		cpy[i] = src[i];
+		i++;
 	}
-	return (envp[i]);
+	return (cpy);
 }

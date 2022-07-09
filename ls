@@ -1,0 +1,11 @@
+a.out
+bonus
+infile
+ls
+Makefile
+mandatory
+out
+outerr
+outerr2
+outfile
+pipex_bonus

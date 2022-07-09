@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put.c                                           :+:      :+:    :+:   */
+/*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 00:46:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/09 10:55:35 by tliot            ###   ########.fr       */
+/*   Created: 2022/07/07 18:09:08 by tliot             #+#    #+#             */
+/*   Updated: 2022/07/09 11:01:31 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_putchar(char c, int fd)
+void	ft_wait_all_pid(t_cmd *lst)
 {
-	write(fd, &c, 1);
-}
+	t_cmd	*lst2;
 
-void	ft_putstr(char *s, int fd)
-{
-	int		i;
-
-	i = 0;
-	while (s[i])
+	lst2 = lst;
+	while (lst2)
 	{
-		ft_putchar(s[i], fd);
-		i++;
+		waitpid(lst2->pid, NULL, 0);
+		lst2 = lst2->next;
 	}
 }
