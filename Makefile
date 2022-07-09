@@ -6,7 +6,7 @@
 #    By: tliot <tliot@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 21:22:24 by tliot             #+#    #+#              #
-#    Updated: 2022/07/09 11:01:00 by tliot            ###   ########.fr        #
+#    Updated: 2022/07/09 14:22:36 by tliot            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,12 +52,12 @@ all:		${NAME}
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 		
-$(NAME):	$(OBJS)
+$(NAME):	mandatory/pipex.h $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 
 bonus: $(NAME)_bonus 
 
-$(NAME)_bonus:	$(OBJSBONUS)
+$(NAME)_bonus:	bonus/pipex_bonus.h $(OBJSBONUS)
 		$(CC) $(CFLAGS) $(OBJSBONUS) -o $(NAME)_bonus
 
 clean:

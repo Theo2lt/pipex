@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:39:34 by tliot             #+#    #+#             */
-/*   Updated: 2022/07/09 11:03:13 by tliot            ###   ########.fr       */
+/*   Updated: 2022/07/09 11:49:59 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	main(int argc, char **argv, char **envp)
 	while (i <= pipex.n_cmd - 1)
 	{	
 		ft_lstadd_back(&pipex.cmd, ft_lstnew(i, argv[i], pipex));
-		if (!ft_lstlast(pipex.cmd)->cmd)
-			ft_commande_not_found(pipex);
 		ft_lstlast(pipex.cmd)->pid = fork();
 		if (ft_lstlast(pipex.cmd)->pid == 0)
 			ft_childs(pipex, i);
